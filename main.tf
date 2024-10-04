@@ -11,9 +11,9 @@ module "frontend" {
 }
 
 #module "backend" {
-  source = "./modules/app"
-}
+  #source = "./modules/app"
+#}
 
 #module "mysql" {
-  source = "./modules/app"
-}
+   #source = "./modules/app"
+#}

@@ -10,6 +10,7 @@ module "frontend" {
 
 }
 module "backend" {
+  depends_on = []
   source = "./modules/app"
   instance_type = var.instance_type
   component = "backend"

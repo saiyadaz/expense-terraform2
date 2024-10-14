@@ -5,7 +5,3 @@ provider "vault" {
   token           = var.vault_token
 }
 
-#####jhhdjdshdiowd
-######
-
-####qshaihs

@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  expense--tf-apply:
+  expense-tf-apply:
     group: Terraform
     label_template: ${COUNT}
     lock_behavior: none
@@ -10,11 +10,9 @@ pipelines:
         git: https://github.com/saiyadaz/expense-terraform2.git
         shallow_clone: false
         auto_update: true
-        branch: main
-   # secure_variables:
-      #TF_VAR_vault_token: AES:vBH3mggQKsL6iR17DvQ1cQ==:zj5yu4M1wCv821rMfnXPB6m6N7gEbH5bbtVKfR0iU2U=
+        branch: mainS
     stages:
-     - Dev:
+      - Dev:
           fetch_materials: true
           environment_variables:
             env: dev

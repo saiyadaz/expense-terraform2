@@ -9,6 +9,7 @@ depends_on = [module.backend]
   env= var.env
   zone_id = var.zone_id
 }
+
 module "backend" {
 depends_on = [module.mysql]
 
@@ -29,5 +30,4 @@ module "mysql" {
   ssh_pass = var.ssh_pass
   env= var.env
   zone_id = var.zone_id
-
 }

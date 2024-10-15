@@ -10,7 +10,7 @@ pipelines:
         git: https://github.com/saiyadaz/expense-terraform2.git
         shallow_clone: false
         auto_update: true
-        branch: mainS
+        branch: main
     stages:
       - Dev:
           fetch_materials: true

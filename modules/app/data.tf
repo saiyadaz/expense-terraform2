@@ -4,10 +4,6 @@ data "aws_ami" "ami" {
   owners      = ["973714476881"]
 }
 
-data "aws_security_group" "selected" {
-   id = var.security_group_id
-}
-
 data "vault_generic_secret" "ssh" {
   path = "common/common"
 }

@@ -8,7 +8,7 @@ depends_on      = [module.backend]
   ssh_pass      = var.ssh_pass
   env           = var.env
   zone_id       = var.zone_id
-  vault_token   = var.vault_token
+
 
 }
 
@@ -22,7 +22,7 @@ depends_on      = [module.mysql]
   ssh_pass      = var.ssh_pass
   env           = var.env
   zone_id       = var.zone_id
-  vault_token   = var.vault_token
+
 
 }
 
@@ -33,6 +33,6 @@ module "mysql" {
   component         = "mysql"
   env               = var.env
   zone_id           = var.zone_id
-  vault_token       = var.vault_token
+
 
 }

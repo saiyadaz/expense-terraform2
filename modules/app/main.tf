@@ -1,7 +1,7 @@
 resource "aws_instance" "instance" {
-  ami           = data.aws_ami.ami.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.main.id]
+  ami                     = data.aws_ami.ami.image_id
+  instance_type           = var.instance_type
+  vpc_security_group_ids  = [aws_security_group.main.id]
 
  tags = {
    Name    = var.component
@@ -14,10 +14,10 @@ resource "null_resource" "ansible" {
   provisioner "remote-exec" {
 
     connection {
-      type = "ssh"
-      user = var.ssh_user
-      password = var.ssh_pass
-      host = aws_instance.instance.public_ip
+      type        = "ssh"
+      user        = var.ssh_user
+      password    = var.ssh_pass
+      host        = aws_instance.instance.public_ip
   }
 
     inline = [

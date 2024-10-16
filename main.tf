@@ -32,7 +32,8 @@ module "mysql" {
   instance_type     = var.instance_type
   component         = "mysql"
   env               = var.env
+  ssh_user          = var.ssh_user
+  ssh_pass          = var.ssh_pass
   zone_id           = var.zone_id
-
 
 }

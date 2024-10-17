@@ -46,4 +46,6 @@ module "vpc" {
   env               = var.env
   vpc_cidr_block    = var.vpc_cidr_block
   subnet_cidr_block = var.subnet_cidr_block
+  default_vpc_cidr  = var.default_vpc_cidr
+  default_vpc_id    = var.default_vpc_id
 }

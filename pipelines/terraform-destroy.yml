@@ -11,6 +11,8 @@ pipelines:
         shallow_clone: false
         auto_update: true
         branch: main
+    secure_variables:
+      TF_VAR_vault_token: AES:Gkr6fGBncKIt9QYs3Kz1Uw==:13xBUpMFlUoVXOuDFRKhoG0xh0AiM93JvP1kvqVjyUQ=
     stages:
       - Dev:
           fetch_materials: true

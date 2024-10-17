@@ -7,14 +7,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-resource "aws_subnet" "main" {
-  vpc_id = aws_vpc.main.id
-  cidr_block = var.subnet_cidr_block
-
-  tags = {
-    Name= "${var.env}-subnet"
-  }
-}
 
 resource "aws_vpc_peering_connection" "main" {
   peer_vpc_id = var.default_vpc_id
@@ -36,3 +28,39 @@ resource "aws_route" "default-vpc" {
   vpc_peering_connection_id = aws_vpc_peering_connection.main.id
   destination_cidr_block = var.vpc_cidr_block
 }
+
+
+resource "aws_subnet" "frontend" {
+  count              = length(var.frontend_subnets)
+  vpc_id             = aws_vpc.main.id
+  cidr_block         = var.frontend_subnets[count.index]
+  availability_zone  = var.availability_zones[count.index]
+
+  tags = {
+    Name = "${var.env}-frontend-subnet-${count.index}"
+  }
+}
+
+resource "aws_subnet" "backend" {
+  count              = length(var.backend_subnets)
+  vpc_id             = aws_vpc.main.id
+  cidr_block         = var.backend_subnets[count.index]
+  availability_zone  = var.availability_zones[count.index]
+
+  tags = {
+    Name = "${var.env}-backend-subnet-${count.index}"
+  }
+}
+resource "aws_subnet" "db" {
+  count             = length(var.db_subnets)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.db_subnets[count.index]
+  availability_zone = var.availability_zones[count.index]
+
+  tags = {
+    Name = "${var.env}-db-subnet-${count.index}"
+  }
+}
+
+
+

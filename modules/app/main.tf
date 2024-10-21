@@ -49,7 +49,7 @@ resource "null_resource" "ansible" {
       password    = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_pass
       host        = aws_instance.instance.private_ip
  }
-  provider = "remote-exec"S {
+  provisioner "remote-exec" {
     inline = [
       "rm -f ~/*.json",
       "sudo pip3.11 install ansible hvac",
@@ -58,11 +58,12 @@ resource "null_resource" "ansible" {
     ]
   }
 
-    provisioner "remote-exec" {
+  provisioner "remote-exec" {
      inline = [
-           "rm -f ~/secrets.json ~/app.json]
-  }
-  }
+       "rm -f ~/secrets.json ~/app.json"
+     ]
+     }
+   }
 
 
 resource "aws_route53_record" "record" {

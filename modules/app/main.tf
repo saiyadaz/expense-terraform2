@@ -39,7 +39,9 @@ resource "aws_instance" "instance" {
 
 }
 resource "null_resource" "ansible" {
-  provisioner "remote-exec" {
+  triggers = {
+    instance = aws_instance.instance.id
+  }
 
     connection {
       type        = "ssh"
@@ -47,15 +49,22 @@ resource "null_resource" "ansible" {
       password    = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_pass
       host        = aws_instance.instance.private_ip
  }
-
+  provider = "remote-exec"S {
     inline = [
-      "sudo pip3.11 install ansible",
+      "rm -f ~/*.json",
+      "sudo pip3.11 install ansible hvac",
       "ansible-pull -i localhost, -U https://github.com/saiyadaz/expense-ansible2.git get-secrets.yml -e env=${var.env} -e role_name=${var.component} -e vault_token=${var.vault_token}",
-      "ansible-pull -i localhost, -U https://github.com/saiyadaz/expense-ansible2.git expense.yml -e env=${var.env} -e role_name=${var.component} -e @common.json -e @${var.component}.json"
+      "ansible-pull -i localhost, -U https://github.com/saiyadaz/expense-ansible2.git expense.yml -e env=${var.env} -e role_name=${var.component} -e @~/secrets.json"
     ]
   }
 
-}
+    provisioner "remote-exec" {
+     inline = [
+           "rm -f ~/secrets.json ~/app.json]
+  }
+  }
+
+
 resource "aws_route53_record" "record" {
   name    = "${var.component}-${var.env}"
   type    = "A"

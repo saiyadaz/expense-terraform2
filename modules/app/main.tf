@@ -73,3 +73,15 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.instance.private_ip]
   ttl = 3
 }
+
+resource "aws_lb" "main" {
+  name                = "${var.component}-${var.env}-alb"
+  internal            = var.lb_type =="public"? false : true
+  load_balancer_type  = "application"
+  security_groups     = [aws_security_group.main.id]
+  subnet_id           = var.lb_subnets
+
+  tags = {
+    Environment = "${var.component}-${var.env}-alb"
+  }
+}

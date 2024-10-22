@@ -9,8 +9,11 @@ instance_type  = var.instance_type
   ssh_user     = var.ssh_user
   ssh_pass     = var.ssh_pass
   vault_token  = var.vault_token
-  subnets      = module.vpc.db_subnets
+  subnets      = module.vpc.frontend_subnets
   vpc_id       = module.vpc.vpc_id
+  lb_type      = "public"
+  lb_needed    = true
+  lb_subnets   = module.vpc.public_subnets
 
 }
 
@@ -27,6 +30,9 @@ zone_id       = var.zone_id
 vault_token   = var.vault_token
 subnets       = module.vpc.db_subnets
 vpc_id        = module.vpc.vpc_id
+lb_type      = "private"
+  lb_needed  = true
+  lb_subnets = module.vpc.backend_subnets
 
 
 }

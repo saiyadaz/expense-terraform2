@@ -34,9 +34,13 @@ resource "aws_instance" "instance" {
  tags = {
    Name    = var.component
    monitor = "yes"
+   env     = var.env
 
  }
-
+ lifecycle {
+   ignore_changes = [
+   ami ]
+ }
 }
 resource "null_resource" "ansible" {
   triggers = {

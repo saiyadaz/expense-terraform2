@@ -98,6 +98,15 @@ resource "aws_lb_target_group" "main" {
   protocol            = "HTTP"
   vpc_id              = var.vpc_id
 
+  health_check {
+    healthy_threshold   = 2
+    interval            = 5
+    path                = "/health"
+    port                = var.app_port
+    timeout             = 2
+    unhealthy_threshold = 2
+  }
+
 }
 
 

@@ -63,7 +63,7 @@ resource "null_resource" "ansible" {
        "rm -f ~/secrets.json ~/app.json"
      ]
      }
-  # }
+   }
 
 
 resource "aws_route53_record" "record" {

@@ -14,6 +14,7 @@ instance_type  = var.instance_type
   lb_type      = "public"
   lb_needed    = true
   lb_subnets   = module.vpc.public_subnets
+  app_port     = 80
 
 }
 
@@ -33,7 +34,7 @@ vpc_id        = module.vpc.vpc_id
 lb_type      = "private"
   lb_needed  = true
   lb_subnets = module.vpc.backend_subnets
-
+  app_port = 8080
 
 }
 

@@ -72,10 +72,10 @@ resource "null_resource" "ansible" {
 
 resource "aws_route53_record" "record" {
   name    = "${var.component}-${var.env}"
-  type    = "A"
+  type    = "CNAME"
   zone_id = var.zone_id
-  records = [aws_instance.instance.private_ip]
-  ttl = 3
+  records = [aws_lb.main[0].dns_name]
+  ttl = 30
 }
 
 resource "aws_lb" "main" {

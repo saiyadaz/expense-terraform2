@@ -65,7 +65,7 @@ module "mysql" {
   prometheus_nodes        = var.prometheus_nodes
   app_port                = 3306
   server_app_port_sg_cidr = var.backend_subnets
-             #this is to allow only the port to open to backend subnets
+                                                   #this is to allow only the port to open to backend subnets
 }
 
 module "vpc" {

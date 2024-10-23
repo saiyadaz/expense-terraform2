@@ -71,7 +71,7 @@ resource "null_resource" "ansible" {
 resource "aws_route53_record" "server" {
   count   = var.lb_needed ? 0 : 1
   name    = "${var.component}-${var.env}"
-  type    = "CNAME"
+  type    = "A"
   zone_id = var.zone_id
   records = [aws_instance.instance.private_ip]
   ttl = 30

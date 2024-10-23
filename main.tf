@@ -24,26 +24,31 @@ instance_type      = var.instance_type
 module "backend" {
   depends_on     = [module.mysql]
 
-source           = "./modules/app"
-instance_type    = var.instance_type
-component        = "backend"
-ssh_user         = var.ssh_user
-ssh_pass         = var.ssh_pass
-env              = var.env
-zone_id          = var.zone_id
-vault_token      = var.vault_token
-subnets          = module.vpc.db_subnets
-vpc_id           = module.vpc.vpc_id
-lb_type          = "private"
-lb_needed        = true
-lb_subnets       = module.vpc.backend_subnets
-app_port         = 8080
-bastion_nodes    =  var.bastion_nodes
-prometheus_nodes =  var.prometheus_nodes
-server_app_port_sg_cidr= concat(var.frontend_subnets,var.backend_subnets)#concat done because lb --backend subnets needs to access backend subnets and frontend subnets
-                                                                                           #so ur merging the port access for both modules.
-lb_app_port_sg_cidr= var.frontend_subnets
+source                      = "./modules/app"
+instance_type               = var.instance_type
+component                   = "backend"
+ssh_user                    = var.ssh_user
+ssh_pass                    = var.ssh_pass
+env                         = var.env
+zone_id                     = var.zone_id
+vault_token                 = var.vault_token
+subnets                     = module.vpc.db_subnets
+vpc_id                      = module.vpc.vpc_id
+lb_type                     = "private"
+lb_needed                   = true
+lb_subnets                  = module.vpc.backend_subnets
+app_port                    = 8080
+bastion_nodes               =  var.bastion_nodes
+prometheus_nodes            =  var.prometheus_nodes
+server_app_port_sg_cidr     = concat(var.frontend_subnets,var.backend_subnets)
+lb_app_port_sg_cidr         = var.frontend_subnets
+
 }
+
+#concat done because lb --backend subnets needs to access backend subnets and frontend subnets
+#so ur merging the port access for both modules.
+
+
 module "mysql" {
 
   source                  = "./modules/app"

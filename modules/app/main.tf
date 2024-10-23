@@ -7,21 +7,21 @@ resource "aws_security_group" "main" {
   ingress {
     from_port        = var.app_port
     to_port          = var.app_port
-    protocol         = "-1"
+    protocol         = "TCP"
     cidr_blocks      = var.server_app_port_sg_cidr ##this is for main server related changes
     }
 
   ingress {
     from_port        = 22
     to_port          = 22
-    protocol         = "-1"
+    protocol         = "TCP"
     cidr_blocks      = var.bastion_nodes#32 is for only workstation node to be accessed
   }
 
   ingress {  #this is for prometheus node
     from_port        = 9100
     to_port          = 9100
-    protocol         = "-1"
+    protocol         = "TCP"
     cidr_blocks      = var.prometheus_nodes
   }
   egress {
@@ -109,7 +109,7 @@ resource "aws_security_group" "load-balancer" {
   ingress {
     from_port        = var.app_port #load balancer to allow access and now to whom to allow answer
     to_port          = var.app_port
-    protocol         = "-1"
+    protocol         = "TCP"
     cidr_blocks      = var.lb_app_port_sg_cidr
   }
 

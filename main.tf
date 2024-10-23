@@ -17,7 +17,7 @@ instance_type      = var.instance_type
   app_port         = 80
   bastion_nodes    =  var.bastion_nodes
   prometheus_nodes =  var.prometheus_nodes
-  server_app_port_sg_cidr= module.vpc.public_subnets
+  server_app_port_sg_cidr= var.public_subnets
   lb_app_port_sg_cidr= ["0.0.0.0/0"] #load balancer accessing the frontend from public subnets port
 }
 
@@ -40,27 +40,27 @@ lb_subnets       = module.vpc.backend_subnets
 app_port         = 8080
 bastion_nodes    =  var.bastion_nodes
 prometheus_nodes =  var.prometheus_nodes
-server_app_port_sg_cidr= concat(module.vpc.frontend_subnets,module.vpc.backend_subnets)#concat done because lb --backend subnets needs to access backend subnets and frontend subnets
+server_app_port_sg_cidr= concat(var.frontend_subnets,var.backend_subnets)#concat done because lb --backend subnets needs to access backend subnets and frontend subnets
                                                                                            #so ur merging the port access for both modules.
-lb_app_port_sg_cidr= module.vpc.frontend_subnets
+lb_app_port_sg_cidr= var.frontend_subnets
 }
 module "mysql" {
 
-  source            = "./modules/app"
-  instance_type     = var.instance_type
-  component         = "mysql"
-  env               = var.env
-  ssh_user          = var.ssh_user
-  ssh_pass          = var.ssh_pass
-  zone_id           = var.zone_id
-  vault_token       = var.vault_token
-  subnets           = module.vpc.db_subnets
-  vpc_id            = module.vpc.vpc_id
-  bastion_nodes     =  var.bastion_nodes
-  prometheus_nodes  =  var.prometheus_nodes
-  app_port          = 3306
-  server_app_port_sg_cidr= module.vpc.backend_subnets
-  #this is to allow only the port to open to backend subnets
+  source                  = "./modules/app"
+  instance_type           = var.instance_type
+  component               = "mysql"
+  env                     = var.env
+  ssh_user                = var.ssh_user
+  ssh_pass                = var.ssh_pass
+  zone_id                 = var.zone_id
+  vault_token             = var.vault_token
+  subnets                 = module.vpc.db_subnets
+  vpc_id                  = module.vpc.vpc_id
+  bastion_nodes           = var.bastion_nodes
+  prometheus_nodes        = var.prometheus_nodes
+  app_port                = 3306
+  server_app_port_sg_cidr = var.backend_subnets
+             #this is to allow only the port to open to backend subnets
 }
 
 module "vpc" {

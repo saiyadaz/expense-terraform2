@@ -92,11 +92,12 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "main" {
-  count               = var.lb_needed ? 1 : 0
-  name                = "${var.component}-${var.env}-tg"
-  port                = var.app_port
-  protocol            = "HTTP"
-  vpc_id              = var.vpc_id
+  count                = var.lb_needed ? 1 : 0
+  name                 = "${var.component}-${var.env}-tg"
+  port                 = var.app_port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
+  deregistration_delay = 15
 
   health_check {
     healthy_threshold   = 2

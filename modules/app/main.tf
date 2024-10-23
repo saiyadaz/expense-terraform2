@@ -18,6 +18,12 @@ resource "aws_security_group" "main" {
     cidr_blocks      = [var.bastion_nodes]#32 is for only workstation node to be accessed
   }
 
+  ingress {  #this is for prometheus node
+    from_port        = 9100
+    to_port          = 9100
+    protocol         = "-1"
+    cidr_blocks      = [var.prometheus_nodes]
+  }
   egress {
     from_port        = 0
     to_port          = 0

@@ -1,42 +1,44 @@
 module "frontend" {
-  depends_on   = [module.backend]
+  depends_on      = [module.backend]
 
-instance_type   = var.instance_type
- source         = "./modules/app"
- component      = "frontend"
-  env           = var.env
-  zone_id       = var.zone_id
-  ssh_user      = var.ssh_user
-  ssh_pass      = var.ssh_pass
-  vault_token   = var.vault_token
-  subnets       = module.vpc.frontend_subnets
-  vpc_id        = module.vpc.vpc_id
-  lb_type       = "public"
-  lb_needed     = true
-  lb_subnets    = module.vpc.public_subnets
-  app_port      = 80
-  bastion_nodes =  var.bastion_nodes
+instance_type      = var.instance_type
+ source            = "./modules/app"
+ component         = "frontend"
+  env              = var.env
+  zone_id          = var.zone_id
+  ssh_user         = var.ssh_user
+  ssh_pass         = var.ssh_pass
+  vault_token      = var.vault_token
+  subnets          = module.vpc.frontend_subnets
+  vpc_id           = module.vpc.vpc_id
+  lb_type          = "public"
+  lb_needed        = true
+  lb_subnets       = module.vpc.public_subnets
+  app_port         = 80
+  bastion_nodes    =  var.bastion_nodes
+  prometheus_nodes =  var.prometheus_nodes
 
 }
 
 module "backend" {
-  depends_on  = [module.mysql]
+  depends_on     = [module.mysql]
 
-source        = "./modules/app"
-instance_type = var.instance_type
-component     = "backend"
-ssh_user      = var.ssh_user
-ssh_pass      = var.ssh_pass
-env           = var.env
-zone_id       = var.zone_id
-vault_token   = var.vault_token
-subnets       = module.vpc.db_subnets
-vpc_id        = module.vpc.vpc_id
-lb_type       = "private"
-lb_needed     = true
-lb_subnets    = module.vpc.backend_subnets
-app_port      = 8080
-bastion_nodes =  var.bastion_nodes
+source           = "./modules/app"
+instance_type    = var.instance_type
+component        = "backend"
+ssh_user         = var.ssh_user
+ssh_pass         = var.ssh_pass
+env              = var.env
+zone_id          = var.zone_id
+vault_token      = var.vault_token
+subnets          = module.vpc.db_subnets
+vpc_id           = module.vpc.vpc_id
+lb_type          = "private"
+lb_needed        = true
+lb_subnets       = module.vpc.backend_subnets
+app_port         = 8080
+bastion_nodes    =  var.bastion_nodes
+prometheus_nodes =  var.prometheus_nodes
 }
 
 module "mysql" {
@@ -52,6 +54,7 @@ module "mysql" {
   subnets           = module.vpc.db_subnets
   vpc_id            = module.vpc.vpc_id
   bastion_nodes     =  var.bastion_nodes
+  prometheus_nodes  =  var.prometheus_nodes
   }
 
 module "vpc" {

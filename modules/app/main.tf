@@ -5,10 +5,10 @@ resource "aws_security_group" "main" {
 
 
   ingress {
-    from_port        = 0
-    to_port          = 0
+    from_port        = var.app_port
+    to_port          = var.app_port
     protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = var.server_app_port_sg_cidr ##this is for main server related changes
     }
 
   ingress {
@@ -100,16 +100,17 @@ resource "aws_route53_record" "load-balancer" {
   ttl = 30
 }
 resource "aws_security_group" "load-balancer" {
+ count           = var.lb_needed ? 1 : 0
   name           = "${var.component}-${var.env}-sg"
   description    = "${var.component}-${var.env}-sg"
   vpc_id         =  var.vpc_id
 
 
   ingress {
-    from_port        = 0
-    to_port          = 0
+    from_port        = var.app_port #load balancer to allow access and now to whom to allow answer
+    to_port          = var.app_port
     protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = var.lb_app_port_sg_cidr
   }
 
   egress {
@@ -118,15 +119,16 @@ resource "aws_security_group" "load-balancer" {
     protocol         = "-1"        #all traffic
     cidr_blocks      = ["0.0.0.0/0"]
   }
+}
 
 resource "aws_lb" "main" {
   count               = var.lb_needed ? 1 : 0
   name                = "${var.component}-${var.env}-alb"
   internal            = var.lb_type =="public"? false : true
   load_balancer_type  = "application"
-  security_groups     = [aws_security_group.main.id]
+  security_groups     = [aws_security_group.load-balancer[0].id]
   subnets              = var.lb_subnets
-
+#[0]--denotes list ##
   tags = {
     Environment = "${var.component}-${var.env}-alb"
   }
@@ -171,5 +173,6 @@ resource "aws_lb_listener" "frontend-http" {
 
 
     }
-  }
+
+}
 

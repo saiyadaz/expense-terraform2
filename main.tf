@@ -15,6 +15,7 @@ instance_type  = var.instance_type
   lb_needed    = true
   lb_subnets   = module.vpc.public_subnets
   app_port     = 80
+  bastion_nodes =  var.bastion_nodes
 
 }
 
@@ -32,10 +33,10 @@ vault_token   = var.vault_token
 subnets       = module.vpc.db_subnets
 vpc_id        = module.vpc.vpc_id
 lb_type      = "private"
-  lb_needed  = true
-  lb_subnets = module.vpc.backend_subnets
-  app_port = 8080
-
+lb_needed  = true
+lb_subnets = module.vpc.backend_subnets
+app_port = 8080
+bastion_nodes =  var.bastion_nodes
 }
 
 module "mysql" {
@@ -50,6 +51,7 @@ module "mysql" {
   vault_token       = var.vault_token
   subnets           = module.vpc.db_subnets
   vpc_id            = module.vpc.vpc_id
+  bastion_nodes =  var.bastion_nodes
   }
 
 module "vpc" {

@@ -11,6 +11,13 @@ resource "aws_security_group" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     }
 
+  ingress {
+    from_port        = 22
+    to_port          = 22
+    protocol         = "-1"
+    cidr_blocks      = [var.bastion_nodes]#32 is for only workstation node to be accessed
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -86,6 +93,25 @@ resource "aws_route53_record" "load-balancer" {
   records = [aws_lb.main[0].dns_name]
   ttl = 30
 }
+resource "aws_security_group" "load-balancer" {
+  name           = "${var.component}-${var.env}-sg"
+  description    = "${var.component}-${var.env}-sg"
+  vpc_id         =  var.vpc_id
+
+
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"        #all traffic
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
 
 resource "aws_lb" "main" {
   count               = var.lb_needed ? 1 : 0

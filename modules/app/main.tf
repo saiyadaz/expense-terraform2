@@ -198,7 +198,7 @@ resource "aws_lb_listener" "frontend-https" {
   certificate_arn    = var.certificate_arn
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group[0].main.arn
 
   }

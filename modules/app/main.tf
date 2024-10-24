@@ -127,7 +127,12 @@ resource "aws_security_group" "load-balancer" {
     protocol         = "-1"        #all traffic
     cidr_blocks      = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.component}-${var.env}-sg"
+  }
 }
+
 
 resource "aws_lb" "main" {
   count               = var.lb_needed ? 1 : 0

@@ -137,10 +137,10 @@ resource "aws_security_group" "load-balancer" {
 resource "aws_lb" "main" {
   count               = var.lb_needed ? 1 : 0
   name                = "${var.component}-${var.env}-alb"
-  internal            = var.lb_type =="public"? false : true
+  internal            = var.lb_type == "public" ? false : true
   load_balancer_type  = "application"
   security_groups     = [aws_security_group.load-balancer[0].id]
-  subnets              = var.lb_subnets
+  subnets             = var.lb_subnets
 #[0]--denotes list ##
   tags = {
     Environment = "${var.component}-${var.env}-alb"
@@ -200,7 +200,7 @@ resource "aws_lb_listener" "frontend-https" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn    = var.certificate_arn
+  certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"

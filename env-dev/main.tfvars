@@ -9,7 +9,7 @@ zone_id           = "Z0599937U1I5C34JZJE7"
 vpc_cidr_block         =  "10.10.0.0/24"
 default_vpc_cidr       =  "172.31.0.0/16"
 default_vpc_id         =  "vpc-08dfc22eeac63dea1"
-default_route_table_id = "rtb-0fed07462201fd7db"
+default_route_table_id =  "rtb-0fed07462201fd7db"
 
 #EXPENSE
 frontend_subnets       =  [ "10.10.0.0/27","10.10.0.32/27" ]

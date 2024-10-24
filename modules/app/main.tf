@@ -196,6 +196,7 @@ resource "aws_lb_listener" "frontend-https" {
   }
 
 }
+
 resource "aws_lb_listener" "backend" {
   count             = var.lb_needed && var.component != "public" ? 1 : 0
   load_balancer_arn = aws_lb.main[0].arn

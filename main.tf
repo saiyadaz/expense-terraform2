@@ -21,7 +21,7 @@ instance_type            = var.instance_type
   lb_app_port_sg_cidr    = ["0.0.0.0/0"] #load balancer accessing the frontend from public subnets port
   certificate_arn        =  var.certificate_arn
   lb_ports               = {http: 80, https: 443}
-  kms_keys_id            = var.kms_key_id
+  kms_key_id            = var.kms_key_id
 }
 
 module "backend" {

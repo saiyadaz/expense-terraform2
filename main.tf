@@ -62,6 +62,8 @@ module "rds" {
   env                     = var.env
   family                  = "mysql8.0"
   instance_class          = "db.t3.micro"
+  ssh_user                = var.ssh_user
+  ssh_pass                = var.ssh_pass
   server_app_port_sg_cidr = var.backend_subnets
   skip_final_snapshot     = true
   storage_type            = "gp3"

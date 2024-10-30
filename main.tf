@@ -56,8 +56,6 @@ module "backend" {
   app_port                = 8080
   bastion_nodes           = var.bastion_nodes
   component               = "backend"
-  ssh_user                = var.ssh_user
-  ssh_pass                = var.ssh_pass
   env                     = var.env
   instance_type           = var.instance_type
   max_capacity            = var.max_capacity

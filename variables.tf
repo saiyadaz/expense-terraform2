@@ -17,3 +17,5 @@ variable "bastion_nodes" {}
 variable "prometheus_nodes" {}
 variable "certificate_arn" {}
 variable "kms_key_id" {}
+variable "max_capacity" {}
+variable "min_capacity" {}

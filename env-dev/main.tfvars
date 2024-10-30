@@ -23,3 +23,6 @@ certificate_arn        =  "arn:aws:acm:us-east-1:058264231458:certificate/9b0132
 kms_key_id             = "arn:aws:kms:us-east-1:058264231458:key/f2b19fa5-3dac-4a66-bc32-3f25a5cf271e"
 
 
+#ASG
+max_capacity = 5
+min_capacity = 1

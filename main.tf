@@ -1,28 +1,28 @@
-module "frontend" {
-  depends_on             = [module.backend]
+#module "frontend" {
+ # depends_on             = [module.backend]
 
-instance_type            = var.instance_type
- source                  = "./modules/app"
- component               = "frontend"
-  env                    = var.env
-  zone_id                = var.zone_id
-  ssh_user               = var.ssh_user
-  ssh_pass               = var.ssh_pass
-  vault_token            = var.vault_token
-  subnets                = module.vpc.frontend_subnets
-  vpc_id                 = module.vpc.vpc_id
-  lb_type                = "public"
-  lb_needed              = true
-  lb_subnets             = module.vpc.public_subnets
-  app_port               = 80
-  bastion_nodes          =  var.bastion_nodes
-  prometheus_nodes       =  var.prometheus_nodes
-  server_app_port_sg_cidr= var.public_subnets
-  lb_app_port_sg_cidr    = ["0.0.0.0/0"] #load balancer accessing the frontend from public subnets port
-  certificate_arn        =  var.certificate_arn
-  lb_ports               = {http: 80, https: 443}
-  kms_key_id            = var.kms_key_id
-}
+#instance_type            = var.instance_type
+ #source                  = "./modules/app"
+ #component               = "frontend"
+ # env                    = var.env
+ # zone_id                = var.zone_id
+ # ssh_user               = var.ssh_user
+  #ssh_pass               = var.ssh_pass
+  #vault_token            = var.vault_token
+  #subnets                = module.vpc.frontend_subnets
+  #vpc_id                 = module.vpc.vpc_id
+  #lb_type                = "public"
+  #lb_needed              = true
+  #lb_subnets             = module.vpc.public_subnets
+  #app_port               = 80
+  #bastion_nodes          =  var.bastion_nodes
+  #prometheus_nodes       =  var.prometheus_nodes
+  #server_app_port_sg_cidr= var.public_subnets
+  #lb_app_port_sg_cidr    = ["0.0.0.0/0"] #load balancer accessing the frontend from public subnets port
+  #certificate_arn        =  var.certificate_arn
+  #lb_ports               = {http: 80, https: 443}
+  #kms_key_id            = var.kms_key_id
+#}
 
 #module "backend" {
   #depends_on                = [module.rds]

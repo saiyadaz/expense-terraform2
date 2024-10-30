@@ -114,12 +114,7 @@ module "rds" {
   subnet_ids              = module.vpc.db_subnets
   vpc_id                  = module.vpc.vpc_id
   kms_key_id              = var.kms_key_id
-  certificate_arn         = var.certificate_arn
-  lb_app_port_sg_cidr     = var.frontend_subnets
-  lb_ports                = { http : 8080 }
-  lb_subnets              = module.vpc.backend_subnets
-  lb_type                 = "private"
-  zone_id                 = var.zone_id
+ 
 }
 
 #module "mysql" {

@@ -152,3 +152,10 @@ module "vpc" {
 
 #ssh_user          = var.ssh_user
 #ssh_pass          = var.ssh_pass
+
+module "eks" {
+  source              = "./modules/eks"
+  env                 = var.env
+  subnet_ids          = module.vpc.backend_subnets
+
+}

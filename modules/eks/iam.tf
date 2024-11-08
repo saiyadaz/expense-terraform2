@@ -57,13 +57,13 @@ resource "aws_iam_role" "node-role" {
   }
 
 }
-resource "aws_iam_role_policy_attachment" "eks-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "node-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.node-role.name
 }
 
 
-resource "aws_iam_role_policy_attachment" "eks-AmazonEKSVPCResourceController" {
+resource "aws_iam_role_policy_attachment" "node-AmazonEKSVPCResourceController" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.node-role.name
 }

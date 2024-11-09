@@ -1,3 +1,22 @@
+resource "aws_eks_cluster" "cluster" {
+  name     = "${var.env}-eks"
+  role_arn = aws_iam_role.cluster-role.arn
+
+  vpc_config {
+    subnet_ids = var.subnet_ids
+  }
+
+  encryption_config {
+    provider {
+      key_arn = var.kms_key_id
+    }
+    resources = ["secrets"]
+  }
+
+}
+
+
+
 resource "aws_launch_template" "main" {
   name                   = "eks-${var.env}"
 

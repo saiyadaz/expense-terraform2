@@ -15,13 +15,13 @@ resource "aws_launch_template" "main" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      "Name" = "${aws_eks_cluster}-workernode"
+      "Name" = "${aws_eks_cluster.cluster.name}-workernode"
     }
   }
 }
 
 resource "aws_eks_node_group" "main" {
-  cluster_name    = aws_eks_cluster
+  cluster_name    = aws_eks_cluster.cluster.name
   node_group_name = "${var.env}-eks-ng-1"
   node_role_arn   = aws_iam_role.node-role.arn
   subnet_ids      = var.subnet_ids
@@ -38,7 +38,6 @@ resource "aws_eks_node_group" "main" {
     max_size     = 2
     min_size     = 1
   }
-
   update_config {
     max_unavailable = 1
   }
